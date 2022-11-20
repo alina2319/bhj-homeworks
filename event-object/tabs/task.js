@@ -1,23 +1,21 @@
-let counter = 0;
-let tabActive = 0;
-let tabContentActive = 0;
-const menu = document.body.querySelectorAll(".tab");
-for (let i = 0; i < menu.length; i++) {
-    menu[i].addEventListener("click", function () {
-        this.classList.add("tab_active");
-        const content = document.body.querySelectorAll('.tab__content');
-        if (counter >= 1) {
-            tabActive.remove("tab_active");
-            tabContentActive.remove("tab__content_active");
-            if (counter > 3) {
-                counter = 0;
-                tabContentActive = 0;
-            }
+const tabContainers = [...document.querySelectorAll('.tabs')];
+let tabs = {};
+let tabContents = {};
 
-        }
-        content[i].classList.add('tab__content_active');
-        tabContentActive = content[i].classList;
-        tabActive = this.classList;
-        counter += 1;
-    })
+tabContainers.forEach((el, index) => {
+    tabsArray = [...el.querySelectorAll('.tab')];
+    tabContentsArray = [...el.querySelectorAll('.tab__content')];
+
+    tabs[index] = tabsArray;
+    tabContents[index] = tabContentsArray;
+
+    tabs[index].forEach((tab, i) => tab.addEventListener('click', () => onTabClick(i, index)));
+});
+
+function onTabClick(i, index) {
+    tabs[index].forEach(el => el.classList.remove('tab_active'));
+    tabContents[index].forEach(el => el.classList.remove('tab__content_active'));
+
+    tabs[index][i].classList.add('tab_active');
+    tabContents[index][i].classList.add('tab__content_active');
 }
