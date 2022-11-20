@@ -1,17 +1,17 @@
-(() => {
-    const menu = document.body.querySelectorAll(".menu__link");
-    for (let i = 0; i < menu.length; i++) {
-        menu[i].addEventListener("click", myFunction);
-    }
-    function myFunction() {
-        this.nextElementSibling.onclick = function() {
-            return false;
-        }
-        if (this.nextElementSibling.className === 'menu menu_sub menu_active') {
-            this.nextElementSibling.classList.remove("menu_active");
-        } else {
-            this.nextElementSibling.classList.add("menu_active");
-        }
-    };
-})();
+const menuLinks = document.querySelectorAll('.menu__link');
+[...menuLinks].forEach(link => link.addEventListener('click', onMenuClick));
 
+function onMenuClick(e) {
+    const sibling = e.target.nextElementSibling;
+    if (sibling && sibling.classList.contains('menu_sub')) {
+        e.preventDefault();
+        sibling.classList.toggle('menu_active');
+
+        const menuSub = document.querySelectorAll('.menu_sub');
+        [...menuSub].forEach(el => {
+            if (el != sibling && el.classList.contains('menu_active')) {
+                el.classList.remove('menu_active');
+            }
+        })
+    }
+}
