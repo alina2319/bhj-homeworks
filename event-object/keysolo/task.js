@@ -110,10 +110,3 @@ class Game {
   }
 }
 
-new Game(document.getElementById('game'))
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Se
