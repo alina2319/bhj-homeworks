@@ -5,7 +5,7 @@ form.addEventListener('submit', () => {
     var formData = new FormData(form);
 
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://netology-slow-rest.herokuapp.com/upload.php');
+    xhr.open('GET', 'https://students.netoservices.ru');
     xhr.send(formData);
 
     xhr.upload.onprogress = function() {

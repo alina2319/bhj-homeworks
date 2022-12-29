@@ -1,25 +1,28 @@
-let valute;
-let valuteContainer = document.getElementById('items');
-let loader = document.getElementById('loader');
-
-let xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://netology-slow-rest.herokuapp.com/');
-xhr.responseType = "json";
+const items = document.getElementById("items");
+const img = document.querySelector(".loader")
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://students.netoservices.ru/nestjs-backend/slow-get-courses');
 xhr.send();
 
-xhr.onreadystatechange = function () {
-    if(xhr.readyState === 4) {
-        valute = xhr.response.response.Valute;
-        console.log(valute);
-        console.log(typeof(valute));    
-    }
-
-    loader.classList.toggle('loader_active');
-
-    for (let valuteItem of valute) {
-        valuteContainer.insertAdjacentHTML("afterBegin",
-        `<div class="item__code">${valuteItem.CharCode}</div>
-        <div class="item__value">${valuteItem.Value}</div>
-        <div class="item__currency">руб.</div>`);
-    }
+xhr.addEventListener('readystatechange', () => {
+   if (xhr.readyState === xhr.DONE) {
+      let data = JSON.parse(xhr.response).response.Valute;
+      img.classList.remove("loader_active");
+      for (let key in data) {
+         items.innerHTML += ` <div class="item">
+         <div class="item__code">
+         ${data[key].CharCode}
+         </div>         
+         <div class="item__value">
+         ${data[key].Value}
+         </div>         
+         <div class="item__currency">
+         руб.
+         </div>
+         <div>
+         </div>`
+      }
+   }
+   else img.classList.add("loader_active");
 }
+);
